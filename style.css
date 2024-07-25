@@ -75,7 +75,7 @@ footer {
 } 
 
 .carousel-container {
-    margin-bottom: 700px; /* Espaço entre o carrossel e o conteúdo seguinte */
+    margin-bottom: 70px; /* Espaço entre o carrossel e o conteúdo seguinte */
 }
 .carousel-item img {
     object-fit: cover;
@@ -87,7 +87,7 @@ footer {
 }
 
 .feature {
-    margin-bottom: 30px;
+    margin-bottom: 10px;
 }
 
 .features {

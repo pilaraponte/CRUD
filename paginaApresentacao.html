@@ -1,42 +1,62 @@
-<!DOCTYPE html>
-<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quem somos</title>
+    <title>Login</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    
-    <div class="container-apresentacao">
-        <section class="intro">
-            <h2 class="introducao">Bem-vindo a My Office!</h2>
-            <p> Aqui você encontra as melhores salas para alugar ou cadastre as suas para serem encontradas por potenciais locatários.</p>
-        </section>
-        <section class="features">
-            <div class="feature">
-                <h3>Busca Simples</h3>
-                <p>Explore uma vasta lista de salas disponíveis para aluguel de forma rápida e fácil.</p>
-            </div>
-            <div class="feature">
-                <h3>Cadastro de Salas</h3>
-                <p>Cadastre suas salas de forma gratuita e aumente suas chances de encontrar locatários.</p>
-            </div>
-            <div class="feature">
-                <h3>Filtros Avançados</h3>
-                <p>Utilize filtros avançados para refinar sua busca e encontrar exatamente o que você precisa.</p>
-            </div>
-        </section>
-        <header>
-            <h3>Quem somos?</h3>
-            <p>Somos uma plataforma dedicada ao cadastro e aluguel de salas, roporcionando uma solução integrada para proprietários e locatários interessados em espaços funcionais e bem localizados. Com uma abordagem centrada na facilidade e eficiência, buscamos conectar oferta e demanda de maneira transparente e segura.</p>
-        <h3>O que fazemos?</h3>
-        <p>Facilitamos o processo de cadastro e busca de salas para aluguel, oferecendo uma plataforma intuitiva e abrangente. Nosso serviço permite que proprietários anunciem suas salas de maneira detalhada e atrativa, enquanto potenciais locatários exploram opções variadas conforme suas necessidades específicas. Com filtros avançados e ferramentas de busca poderosas, ajudamos a simplificar a experiência de encontrar e alugar salas ideais para diversos fins comerciais e institucionais.</p>
-        </header><br>
-        <div style="text-align: center;">
-            <button  class="btn btn_" onclick="voltar()" >Voltar</button>
-        </div>
-    </div>
-    <script src="script.js"></script>
+
+<body class="login-body">
+    <header class="cabecalho">
+        <img onclick="telaInicio()" class="img" src="Imagem/logo.png" width="200" height="80">
+    </header>
+<div class="container-apresentacao">
+	<section class="intro">
+	</section>
+	<section class="features">
+		<div class="feature"> 
+			<h2 id="ferramentas">Ferramentas</h2><br>
+			<h3>Busca Simples</h3>
+			<p>Explore uma vasta lista de salas disponíveis para aluguel de forma rápida e fácil.</p>
+		</div>
+		<div class="feature">
+			<h3>Cadastro de Salas</h3>
+			<p>Cadastre suas salas de forma gratuita e aumente suas chances de encontrar locatários.</p>
+		</div>
+		<div class="feature">
+			<h3>Filtros Avançados</h3>
+			<p>Utilize filtros avançados para refinar sua busca e encontrar exatamente o que você precisa.</p>
+		</div>
+	</section> 
+	<section class="features">
+		<div class="feature"> 
+			<h2>Sobre</h2>
+	</section> 
+	<header id="sobre" >
+		<h4>Quem somos?</h4>
+		<p class="sobre_p">Somos uma plataforma dedicada ao cadastro e aluguel de salas.<br> Proporcionamos uma solução integrada para proprietários e locatários interessados em espaços funcionais e bem localizados. <br> Com uma abordagem centrada na facilidade e eficiência, buscamos conectar oferta e demanda de maneira transparente e segura.</p>
+	<h4>O que fazemos?</h4>
+	<p class="sobre_p">Facilitamos o processo de cadastro e busca de salas para aluguel, oferecendo uma plataforma intuitiva e abrangente. <br> Nosso serviço permite que proprietários anunciem suas salas de maneira detalhada e atrativa,<br> enquanto potenciais locatários exploram opções variadas conforme suas necessidades específicas. <br>Com filtros avançados e ferramentas de busca poderosas,<br> ajudamos a simplificar a experiência de encontrar   e alugar salas ideais para diversos fins comerciais e institucionais.</p>
+	</header>
+	<section class="features">
+		<div class="feature"> 
+			<h2 id="contatos" >Contatos</h2>
+	</section>
+	<nav>
+		<a target="_blank" 
+		   href="https://wa.me"><img src="imagem/wtss.png" class="img_login" alt="Login Image" ></a>
+		   
+		<a target="_blank" 	
+		   href="https://www.linkedin.com"><img src="imagem/Linkedin.webp" class="img_login" alt="Login Image" ></a></a>
+		   <a target="_blank"
+		href="https://www.instagram.com"><img src="imagem/instagram.webp" class="img_login" alt="Login Image" ></a>
+	</nav>
+
 </body>
+
+<script src="script.js"></script>
+
+<footer> 
+    Criado por MyOffice - 2024 
+</footer>
+
 </html>
