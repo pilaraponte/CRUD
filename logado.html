@@ -41,7 +41,7 @@
     <span class="close">&times;</span>
     <div class="containerCadastro">
       <h2>Opções</h2>
-      <label for="id_cadastro_salas">Id:</label>
+      <label for="id_cadastro_salas">Código da sala:</label>
       <input placeholder="Cadastre ou consulte uma sala" type="text" id="id_cadastro_salas" required>
       <br>
       <label for="cep_cadastro_salas">Cep:</label>
@@ -83,7 +83,7 @@
       <label for="bairro_cadastro_salas">Bairro:</label>
       <input placeholder="Informe o bairro" type="text" id="bairro_cadastro_salas" required>
       <br>
-      <label for="data_cadastro_salas">Data:</label>
+      <label for="data_cadastro_salas">Data de publicação:</label>
       <input type="date" id="data_cadastro_salas" required>
       <br>
       <label for="preco_cadastro_salas">Preço:</label>
@@ -98,11 +98,29 @@
       <!--Vou alterar aqui-->
       <label for="imagens_salas">Imagens:</label>
       <input placeholder="Informe a imagem " type="text" id="imagens_salas">
+      <label for="contato">Contato:</label>
+      <input placeholder="Informe seu telefone" type="tel" id="contato">
       <br><br>
       <button id="cadastrarSala" onclick="cadastrarSala()">Cadastrar</button>
       <button id="consultarSala" onclick="consultarSala()">Buscar sala</button>
       <button id="atualizarSala" onclick="AtualizarDadosSala()">Atualizar sala</button>
-      <button id="excluirSala" onclick="excluirSala()">Excluir sala</button>
+      
+
+      <!-- Botão para abrir o modal -->
+      <button id="excluirSala" onclick="openModal()">Excluir sala</button>
+
+        <!-- O Modal -->
+        <div id="Modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <p>Tem certeza de que deseja excluir esta sala?</p>
+                <div class="button-container">
+                    <button onclick="excluirSala()">Excluir</button>
+                    <button onclick="closeModal()">Cancelar</button>
+                </div>
+            </div>
+        </div>
+
     </div>
   </div>
 </div>
@@ -115,7 +133,11 @@
    <div  style="text-align: center;" class="container-exibe-Sala" id="resultado"></div>
 
 
-   <nav style="text-align: center;">
+
+
+<body>
+
+  <nav style="text-align: center;">
 		<a target="_blank" 
 		   href="https://wa.me"><img src="imagem/wtss.png" class="img_login" alt="Login Image" ></a>
 		   
@@ -124,11 +146,11 @@
 		   <a target="_blank"
 		href="https://www.instagram.com"><img src="imagem/instagram.webp" class="img_login" alt="Login Image" ></a>
 	</nav>
+  <footer class="footer">
+    Criado por MyOffice - 2024
+</footer>
 
-	<br><h6 style="text-align: center;" >Criado por MyOffice - 2024</h6>
-	
- 
-<body>
+
     <script src="script.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

@@ -13,6 +13,11 @@ function logado() {
     let mensagem = "Usuário ou senha incorreta!";
     let bancoDeDados = JSON.parse(localStorage.getItem("bancoDeDados"));
 
+    if (!validateEmail(EmailLogin)) {
+        alert("Por favor, insira um endereço de e-mail válido.");
+        return;
+    }
+
     if (bancoDeDados == null) {
         mensagem = "Nenhum usuário cadastrado até o momento";
     } else {
@@ -30,15 +35,29 @@ function logado() {
     LimparPlaceHolder();
 }
 
+function validateEmail(email) {
+    var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(String(email).toLowerCase());
+}
+
+// Função de cadastro e validação se é email
+
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
 
 function cadastrar() {
-    let nome = campoNovoCadasto.value;
-    let senha = campoSenha.value;
-    let confirmarSenha = campoRepitaSenha.value;
-    let email = campoEmail.value;
-    // percorrendo o valor do campo de input, para sabert se contém @
-    if (nome != '' && email != '' && senha != '' && confirmarSenha != '') {
+    let nome = document.getElementById('nome').value;
+    let email = document.getElementById('email').value;
+    let senha = document.getElementById('novaSenha').value;
+    let confirmarSenha = document.getElementById('repitaSenha').value;
 
+    if (nome != '' && email != '' && senha != '' && confirmarSenha != '') {
+        if (!isValidEmail(email)) {
+            alert('Por favor, insira um e-mail válido.');
+            return;
+        }
         if (senha == confirmarSenha) {
             const usuario = {
                 nome: nome,
@@ -49,21 +68,19 @@ function cadastrar() {
             if (bancoDeDados == null) {
                 bancoDeDados = [];
             }
-            if (existe(usuario, bancoDeDados)) { // verificando se já exite usuário cadastrado!
+            if (existe(usuario, bancoDeDados)) {
                 alert('Esse usuário já foi cadastrado!');
             } else {
-
                 bancoDeDados.push(usuario);
                 localStorage.setItem("bancoDeDados", JSON.stringify(bancoDeDados));
                 alert("Usuário cadastrado com sucesso!");
-                LimparPlaceHolder();
+                telaLogin();
             }
         } else {
             alert("As senhas são diferentes!");
         }
     } else {
-
-        alert('Preencha todos os campos!')
+        alert('Preencha todos os campos!');
     }
 }
 
@@ -101,10 +118,6 @@ function voltar() {
 function sair() {
     window.location.href = 'index.html';
 }
-
-
-
-
 
 document.addEventListener('DOMContentLoaded', function () {
     // Seleciona todos os links âncora que começam com #
@@ -187,7 +200,15 @@ window.onclick = function (event) {
 
 // ======  finaliza o modal de consulta ======
 
+function existeSala(novaSala,salas) {
 
+    for (let verificadoSala of salas) {
+        if (verificadoSala.id == novaSala.id) {
+            return true;
+        }
+    }
+    return false;
+}
 //==================== começa a parte de cadastros de salas aqui
 
 // Função para cadastrar uma sala
@@ -203,7 +224,8 @@ function cadastrarSala() {
     let capacidade = document.getElementById('capacidade_cadastro_salas').value;
     let descricao = document.getElementById('descricao_cadastro_salas').value;
     let imagem = document.getElementById('imagens_salas').value;
-    if (id != '' && cep != '' && estado != '' && cidade != '' && bairro != '' && data != '' && preco != '' && capacidade != '' && descricao != '' && imagem != '') {
+    let telefone = document.getElementById('contato').value;
+    if (id != '' && cep != '' && estado != '' && cidade != '' && bairro != '' && data != '' && preco != '' && capacidade != '' && descricao != '' && imagem != '' && telefone != '') {
         // Salva os dados no localStorage
         let novaSala = {
             id: id,
@@ -215,20 +237,27 @@ function cadastrarSala() {
             bairro: bairro,
             data: data,
             descricao: descricao,
-            imagem: imagem
+            imagem: imagem,
+            telefone: telefone
         };
 
         // Verifica se já existe alguma informação no localStorage
         let salas = JSON.parse(localStorage.getItem('salas')) || [];
 
-        // Adiciona a nova sala à lista de salas
-        salas.push(novaSala);
-        // Atualiza o localStorage com a nova lista de salas
-        localStorage.setItem('salas', JSON.stringify(salas));
+        if(existeSala(novaSala,salas)){
+            alert('Essa sala já foi cadastrada!');
+        }else{
 
-        // Mensagem de sucesso
-        alert("Sala cadastrada com sucesso!");
-        limparCadastro();
+            // Adiciona a nova sala à lista de salas
+            salas.push(novaSala);
+            // Atualiza o localStorage com a nova lista de salas
+            localStorage.setItem('salas', JSON.stringify(salas));
+    
+            // Mensagem de sucesso
+            alert("Sala cadastrada com sucesso!");
+            limparCadastro();
+        }
+
     } else {
         alert('Preencha todos os campos!')
     }
@@ -253,17 +282,22 @@ function exibeSalas() {
     salas.forEach(sala => {
         salaHTML += `
             <div class="sala">
-                <p><strong>Número da Sala:</strong> ${sala.id}</p>
+                <p><strong>Código da Sala:</strong> ${sala.id}</p>
                 <img src="imagem/${sala.imagem}.jpg" width="500" height="300">
                 <br><br>
                 <p><strong>CEP:</strong> ${sala.cep}</p>
                 <p><strong>Estado:</strong> ${sala.estado}</p>
                 <p><strong>Cidade:</strong> ${sala.cidade}</p>
                 <p><strong>Bairro:</strong> ${sala.bairro}</p>
-                <p><strong>Data:</strong> ${sala.data}</p>
+                <p><strong>Data de publicação:</strong> ${sala.data}</p>
                 <p><strong>Descrição:</strong> ${sala.descricao}</p>
                 <p><strong>Capacidade da sala:</strong> ${sala.capacidade} pessoas</p>
                 <p><strong>Preço Diária:</strong> ${sala.preco} R$</p>
+                <p><strong>Contato:</strong> ${sala.telefone}
+                
+                <a target="_blank" href="https://wa.me/${sala.telefone}">
+                    <img src="imagem/wtss.png" class="img_login" alt="WhatsApp">
+                </a></p>
             </div>
             <hr>
         `;
@@ -297,6 +331,7 @@ function limparCadastro() {
     document.getElementById('preco_cadastro_salas').value = '';
     document.getElementById('capacidade_cadastro_salas').value = '';
     document.getElementById('id_cadastro_salas').value = '';
+    document.getElementById('contato').value = '';
 
     // Limpar campo de seleção de imagens
     let inputImagens = document.getElementById('imagens_salas');
@@ -328,6 +363,7 @@ function consultarSala() {
             document.getElementById('descricao_cadastro_salas').value = salas[i].descricao;
             document.getElementById('capacidade_cadastro_salas').value = salas[i].capacidade;
             document.getElementById('preco_cadastro_salas').value = salas[i].preco;
+            document.getElementById('contato').value = salas[i].telefone;
 
 
             salaEncontrada = i; // Atualiza o índice de encontrado
@@ -344,8 +380,13 @@ function consultarSala() {
 function AtualizarDadosSala() {
 
     let encontrado = salaEncontrada;
-
     let salas = JSON.parse(localStorage.getItem("salas"));
+
+    // Verifica se a variável salaEncontrada é válida e se o índice está dentro dos limites do array
+    if (encontrado === undefined || encontrado < 0) {
+        alert("Por favor, pesquise uma sala antes de atualizar.");
+        return;
+    }
 
     salas[encontrado].imagem = document.getElementById('imagens_salas').value;
     salas[encontrado].cep = document.getElementById('cep_cadastro_salas').value;
@@ -356,6 +397,7 @@ function AtualizarDadosSala() {
     salas[encontrado].descricao = document.getElementById('descricao_cadastro_salas').value;
     salas[encontrado].capacidade = document.getElementById('capacidade_cadastro_salas').value;
     salas[encontrado].preco = document.getElementById('preco_cadastro_salas').value;
+    salas[encontrado].telefone = document.getElementById('contato').value;
 
     localStorage.setItem("salas", JSON.stringify(salas));
 
@@ -365,7 +407,20 @@ function AtualizarDadosSala() {
 
 }
 
+
+// Função para abrir o modal de deseja a excluir sala
+function openModal() {
+    document.getElementById('Modal').style.display = 'block';
+}
+
+// Função para fechar o modal
+function closeModal() {
+    document.getElementById('Modal').style.display = 'none';
+}
+
+// Função de excluir sala
 function excluirSala() {
+    let salaEncontrada = 0; // Defina isso com base na sua lógica
     if (salaEncontrada !== -1) {
         let salas = JSON.parse(localStorage.getItem("salas"));
 
@@ -387,7 +442,10 @@ function excluirSala() {
     } else {
         alert('Nenhuma sala encontrada para deletar.');
     }
+    closeModal(); // Fecha o modal após a exclusão
 }
+
+limparCadastro();
 
 // Função para buscar as salas com base no termo de pesquisa
 function buscarSala() {
@@ -417,10 +475,14 @@ function buscarSala() {
                     <p><strong>Estado:</strong> ${sala.estado}</p>
                     <p><strong>Cidade:</strong> ${sala.cidade}</p>
                     <p><strong>Bairro:</strong> ${sala.bairro}</p>
-                    <p><strong>Data:</strong> ${sala.data}</p>
+                    <p><strong>Data de publicação:</strong> ${sala.data}</p>
                     <p><strong>Descrição:</strong> ${sala.descricao}</p>
                     <p><strong>Capacidade da sala:</strong> ${sala.capacidade} pessoas</p>
                     <p><strong>Preço Diária:</strong> ${sala.preco} R$</p>
+                    <p><strong>Contato:</strong> ${sala.telefone}
+                    <a target="_blank" href="https://wa.me/${sala.telefone}">
+                    <img src="imagem/wtss.png" class="img_login" alt="WhatsApp">
+                    </a></p>
                 </div>
                 <hr>
             `;
@@ -441,3 +503,39 @@ function mostrarResultados(resultadoHTML) {
     let resultadoDiv = document.getElementById('resultado');
     resultadoDiv.innerHTML = resultadoHTML; // Define o conteúdo da div de resultados
 }
+
+
+
+
+// função para mostrara o password no login
+
+function toggleSenha(inputId, iconId) {
+    var input = document.getElementById(inputId);
+    var icon = document.getElementById(iconId);
+    if (input.type === "password") {
+        input.type = "text";
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
+    } else {
+        input.type = "password";
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
+    }
+}
+
+
+//função para mostrar o password cadastro
+function toggleSenha(inputId, iconId) {
+    var input = document.getElementById(inputId);
+    var icon = document.getElementById(iconId);
+    if (input.type === "password") {
+        input.type = "text";
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
+    } else {
+        input.type = "password";
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
+    }
+}
+  

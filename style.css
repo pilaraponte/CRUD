@@ -261,13 +261,20 @@ footer {
     color: #58af9b;
   }
   
-  .fa-eye{
-    position: absolute;
-    top: 15px;
-    right: 10px;
-    cursor: pointer;
+  .fa-eye, .fa-eye-slash {
     color: #58af9b;
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
   }
+
+  #msgError {
+    color: red;
+    margin-bottom: 10px;
+    font-size: bold;
+}
 
 /* cadastro.html*/
 
@@ -290,6 +297,8 @@ footer {
     margin-bottom: 20px;
     color: #58af9b
   }
+
+
   
   .label-float input{
     width: 100%;
@@ -464,7 +473,7 @@ footer {
   }
   
   p{
-    color: 58af9b;
+    color: black;
     font-size: 14pt;
     text-align: center;
   }
@@ -589,7 +598,7 @@ header {
     }
 
     .containerCadastro button {
-        background-color: #4CAF50;
+        background-color: #58af9b;
         color: white;
         border: none;
         cursor: pointer;
@@ -597,7 +606,8 @@ header {
     }
     
     .containerCadastro button:hover {
-        background-color: #45a049;
+        background-color: #58af9b;
+        opacity: 0.7;
     }
 
     .estados {
@@ -715,7 +725,7 @@ header {
   }
   
   .modal-content-consulta button {
-    background-color: #4CAF50;
+    background-color: #58af9b;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -727,7 +737,8 @@ header {
   }
   
   .modal-content-consulta button:hover {
-    background-color: #45a049;
+    background-color: #58af9b;
+    opacity: 0.7;
   }
   
   .closeConsulta {
